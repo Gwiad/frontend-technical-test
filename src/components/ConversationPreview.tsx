@@ -2,8 +2,8 @@ import { Conversation } from '../types/conversation';
 import { Avatar, Card, CardContent, Grid, Typography } from '@mui/material';
 import { stringToColor } from '../utils/stringToColor';
 import Moment from 'react-moment';
-import { getLoggedUserId } from '../utils/getLoggedUserId';
 import Link from 'next/link';
+import { getLoggedUserId } from '../api/getLoggedUserId';
 
 const ConversationPreview = (props: Conversation) => {
   const userId = getLoggedUserId();
