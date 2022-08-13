@@ -17,6 +17,13 @@ const ConversationDetails = ({
     [`${process.env.NEXT_PUBLIC_BACKEND_URL}/conversations`, conversationId],
     getConversationById
   );
+  const dataStatus = error
+    ? 'error'
+    : !data
+    ? 'loading'
+    : data.length < 1
+    ? 'empty'
+    : 'success';
   const otherUserNickname =
     data?.recipientId === loggedUserId
       ? data?.senderNickname
@@ -26,26 +33,8 @@ const ConversationDetails = ({
     if (window.innerWidth > 600) setIsDesktop(true);
     else setIsDesktop(false);
   }, []);
-  if (error)
-    return (
-      <PageLayout>
-        <Typography variant='h6'>could not load conversation...</Typography>
-      </PageLayout>
-    );
-  if (!data)
-    return (
-      <PageLayout>
-        <Typography variant='h6'>loading conversation...</Typography>
-      </PageLayout>
-    );
-  if (data.length < 1)
-    return (
-      <PageLayout>
-        <Typography variant='h6'>no conversation</Typography>
-      </PageLayout>
-    );
   return (
-    <PageLayout>
+    <PageLayout dataTitle='conversation' dataStatus={dataStatus}>
       <Grid container sx={{ padding: '20px' }}>
         <Grid item xs={12}>
           <Grid
@@ -60,9 +49,9 @@ const ConversationDetails = ({
           >
             <Grid item xs='auto'>
               <Typography sx={{ fontWeight: 800, padding: '0px 6px' }}>
-                {data.recipientId === loggedUserId
-                  ? data.senderNickname
-                  : data.recipientNickname}{' '}
+                {data?.recipientId === loggedUserId
+                  ? data?.senderNickname
+                  : data?.recipientNickname}{' '}
                 - You
               </Typography>
             </Grid>
@@ -71,7 +60,7 @@ const ConversationDetails = ({
                 <Typography sx={{ fontWeight: 800, padding: '0px 6px' }}>
                   Last message{' '}
                   <Moment unix format='DD MMMM YY'>
-                    {data.lastMessageTimestamp}
+                    {data?.lastMessageTimestamp}
                   </Moment>
                 </Typography>
               </Grid>

@@ -7,28 +7,16 @@ import PageLayout from './PageLayout';
 const ConversationList = () => {
   const apiUrl = `${process.env.NEXT_PUBLIC_BACKEND_URL}/conversations`;
   const { data, error } = useSWR(apiUrl, getLoggedUserConversations);
-
-  if (error)
-    return (
-      <PageLayout>
-        <Typography variant='h6'>could not load conversations...</Typography>
-      </PageLayout>
-    );
-  if (!data)
-    return (
-      <PageLayout>
-        <Typography variant='h6'>loading conversations...</Typography>
-      </PageLayout>
-    );
-  if (data.length < 1)
-    return (
-      <PageLayout>
-        <Typography variant='h6'>no conversations found</Typography>
-      </PageLayout>
-    );
+  const dataStatus = error
+    ? 'error'
+    : !data
+    ? 'loading'
+    : data.length < 1
+    ? 'empty'
+    : 'success';
   return (
-    <PageLayout>
-      {data.map((conversation) => (
+    <PageLayout dataTitle='conversations' dataStatus={dataStatus}>
+      {data?.map((conversation) => (
         <ConversationPreview key={conversation.id} {...conversation} />
       ))}
     </PageLayout>
