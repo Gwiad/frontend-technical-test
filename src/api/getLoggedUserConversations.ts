@@ -7,4 +7,4 @@ const getLoggedUserConversations = (apiUrl: string) => {
 
 export default getLoggedUserConversations;
 
-export const getLoggedUserConversationsId = () => [1, 2, 3];
+export const getLoggedUserConversationsIds = () => [1, 2, 3];
