@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material';
 import { getLoggedUserId } from '../api/getLoggedUserId';
 import { Message as MessageT } from '../types/message';
 import Message from './Message';
@@ -16,16 +15,15 @@ const SentMessages = ({
   const loggedUserId = getLoggedUserId();
   return (
     <PageLayout dataTitle='messages' dataStatus={dataStatus}>
-      <Grid
-        container
-        direction='column'
-        justifyContent='flex-end'
-        column-spacing='8px'
-        rowSpacing={2}
-        sx={{ height: '80vh' }}
+      <div
+        style={{
+          width: '100%',
+          height: '80vh',
+          overflowY: 'scroll',
+        }}
       >
         {data?.map((message) => (
-          <Grid item key={message.id}>
+          <div key={message.id}>
             <Message
               variant={
                 message.authorId === loggedUserId
@@ -37,9 +35,9 @@ const SentMessages = ({
                 message.authorId === loggedUserId ? '' : otherUserNickname
               }
             />
-          </Grid>
+          </div>
         ))}
-      </Grid>
+      </div>
     </PageLayout>
   );
 };
