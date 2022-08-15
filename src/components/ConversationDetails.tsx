@@ -24,10 +24,7 @@ const ConversationDetails = ({
     : data.length < 1
     ? 'empty'
     : 'success';
-  const otherUserNickname =
-    data?.recipientId === loggedUserId
-      ? data?.senderNickname
-      : data?.recipientNickname;
+
   const [isDesktop, setIsDesktop] = useState(false);
   useEffect(() => {
     if (window.innerWidth > 600) setIsDesktop(true);
@@ -67,13 +64,7 @@ const ConversationDetails = ({
             )}
           </Grid>
         </Grid>
-        <Grid item sx={{ height: '80vh' }} xs={12}>
-          <Messages
-            conversationId={conversationId}
-            otherUserNickname={otherUserNickname}
-          />
-        </Grid>
-        <Grid item xs={12}></Grid>
+        <Messages conversationId={conversationId} conversation={data} />
       </Grid>
     </PageLayout>
   );

@@ -1,4 +1,3 @@
-import { Typography } from '@mui/material';
 import useSWR from 'swr';
 import getLoggedUserConversations from '../api/getLoggedUserConversations';
 import ConversationPreview from './ConversationPreview';
